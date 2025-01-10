@@ -235,6 +235,9 @@ print("I have " + str(y) + " cats")
 
 # Method 2: Use format()
 print("My name is {}. I'm {} and I have ${}.".format("Bob", 27, 3.99))
+
+# Method 3 : f-strings
+print(f"I have {y} cats and {y + 1} dogs")
 ```
 ### Reprise
 ```python
@@ -411,7 +414,7 @@ for x in range(1, 11):
 print(squares)
 
 
-# Method2 使用列表推导式
+# Method2 使用列表推导式(list comprehension):
 squares = [x ** 2 for x in range(1, 11)]
 print(squares)
 ```
@@ -651,4 +654,369 @@ print("my_line.a = {}".format(my_line.a))
 # my_line.a = 5
 print("my_line.b = {}".format(my_line.b))
 # my_line.b = 2
+```
+## Creating Arrays in NumPy
+```py
+# array
+
+import numpy as np
+
+# Convert from list of lists to numpy array! Basically a cast.
+c = np.array([[1, 2, 3, 4], [5, 6, 7, 8]])
+print(c)
+#[[1 2 3 4]
+# [5 6 7 8]]
+```
+```py
+# zeros
+
+import numpy as np
+
+# Creates a 3x4 matrix of 0's
+a = np.zeros((3, 4))
+print(a)
+#[[0. 0. 0. 0.]
+# [0. 0. 0. 0.]
+# [0. 0. 0. 0.]]
+```
+```py
+# ones
+
+import numpy as np
+
+# Creates a 2x5x3 matrix (tensor) of 1's
+b = np.ones((2, 4, 3))
+print(b)
+#[[[1. 1. 1.]
+#  [1. 1. 1.]
+#  [1. 1. 1.]
+#  [1. 1. 1.]]
+
+# [[1. 1. 1.]
+#  [1. 1. 1.]
+#  [1. 1. 1.]
+#  [1. 1. 1.]]]
+```
+```py
+# arange
+
+import numpy as np
+
+# Works exactly like range() but returns a np array instead of a range object
+# 3 parameters (start, end=length of list, step=1), where end/step are optional
+# and have defaults
+d = np.arange(1, 10, 3)
+print(d)
+# [1 4 7]
+```
+### Practice1 - Creating Numpy Arrays
+```py
+import numpy as np
+
+def task1():
+    # TODO: Generate and return the following array: [3, 2, 5, 6]
+    return np.array([3, 2, 5, 6])
+    
+
+def task2():
+    # TODO: Generate and return an array of the cubes of every integer 
+    # from 3 to 9 (inclusive).
+    # HINT: remember we can easily generate lists using list comprehension
+    cubes = [x ** 3 for x in range(3,10)]
+    return np.array(cubes)
+    
+
+def task3():
+    # TODO: Generate and return an array of every 3rd number 
+    # from 10 to 20 (inclusive)
+    return np.array(range(10, 21, 3))
+    
+
+def main():
+    print(task1())
+    print(task2())
+    print(task3())
+
+if __name__ == "__main__":
+    main()
+```
+### Reshape
+
+```py
+# Reshape
+
+import numpy as np
+
+e = np.arange(1, 9)
+print(e)
+
+print("")
+f = e.reshape((2, 4))
+print(f)
+
+print("")
+g = f.reshape((4, 2))
+print(g)
+
+print("")
+f = g.reshape((8, 1))
+print(f)
+```
+OUTPUT:
+```
+[1 2 3 4 5 6 7 8]
+
+[[1 2 3 4]
+ [5 6 7 8]]
+
+[[1 2]
+ [3 4]
+ [5 6]
+ [7 8]]
+
+[[1]
+ [2]
+ [3]
+ [4]
+ [5]
+ [6]
+ [7]
+ [8]]
+```
+### Arithmetic with Lists vs NumPy Arrays
+```PY
+import numpy as np
+
+arr = np.array([1, 2, 3, 4])
+li = [1, 2, 3, 4]
+
+print(arr + 5) # [6 7 8 9]
+# Error: print(li + 5)
+
+print(arr + arr) # [2 4 6 8]
+print(li + li) # [1, 2, 3, 4, 1, 2, 3, 4]
+
+print(arr ** 3)
+# Error: li ** 3
+
+print(arr * 3) # [ 3  6  9 12]
+print(li * 3) # [1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4]
+
+print(arr * arr) # [ 1  4  9 16]
+# Error: li * li
+```
+### Practice2 Advanced Numpy
+```py
+import numpy as np
+
+#[[3 3 3 3]
+# [3 3 3 3]
+# [3 3 3 3]]
+def task1():
+    return np.zeros((3,4), dtype=int) + 3
+    
+#[[ 1  2  3  4]
+# [ 5  6  7  8]
+# [ 9 10 11 12]]
+def task2():
+    return np.arange(1, 13).reshape((3, 4))
+    
+#[[7 5 3 1]
+# [7 5 3 1]
+# [7 5 3 1]
+# [7 5 3 1]
+# [7 5 3 1]]
+def task3():
+    return np.array([7,5,3,1]*5).reshape((5,4))
+    
+
+def main():
+    print(task1())
+    print(task2())
+    print(task3())
+
+if __name__ == "__main__":
+    main()
+```
+### Indexing with Arrays
+```py
+import numpy as np
+
+x = np.arange(1, 13).reshape((3, 4))
+print(x)
+print(x[1, -1])
+print(x[:1, 2:])
+print(x[:, 1:3])
+```
+output:
+```
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 11 12]]
+
+8
+
+[[3 4]]
+
+[[ 2  3]
+ [ 6  7]
+ [10 11]]
+```
+### Aggregators
+```py
+import numpy as np
+
+# 创建一个 3x4 的二维数组
+arr = np.array([[1, 2, 3, 4],
+                [5, 6, 7, 8],
+                [9, 10, 11, 12]])
+
+# 打印数组
+print(arr)
+#[[ 1  2  3  4]
+# [ 5  6  7  8]
+# [ 9 10 11 12]]
+
+# 计算数组所有元素的总和
+print(np.sum(arr))
+#78
+
+# 计算数组按列(axis=0)的总和
+print(np.sum(arr, axis=0))
+#[15 18 21 24]
+
+# 计算数组按行(axis=1)的总和
+print(np.sum(arr, axis=1))
+# [10 26 42]
+```
+```py
+import numpy as np
+
+# 创建一个 3x4 的二维数组
+arr = np.array([[1, 3, 5, 7], 
+                [2, 4, 6, 0], 
+                [8, 4, 6, 5]])
+
+# 打印数组
+print(arr)
+#[[1 3 5 7]
+# [2 4 6 0]
+# [8 4 6 5]]
+
+# 计算数组所有元素的均值
+print(np.mean(arr))
+#4.25
+
+
+# 计算数组按列(axis=0)的最小值
+print(np.min(arr, axis=0))
+#[1 3 5 0]
+
+# 计算数组按行(axis=1)的最大值
+print(np.max(arr, axis=1))
+#[7 6 8]
+
+# 找到数组按行(axis=1)的最大值的索引
+print(np.argmax(arr, axis=1))
+#[3 2 0]
+```
+## Matplotlib
+`matplotlib.pyplot` 是 Python 中用于绘制图表的库，通常用于科学计算和数据分析中的可视化工作。它提供了一系列用于绘制各种类型图形（如折线图、散点图、柱状图等）的函数，类似于 MATLAB 中的绘图工具，因此也被称为 `pyplot`。
+
+`matplotlib` 是一个强大的可视化工具，而 `pyplot` 是它的一个模块，提供了一些简单的接口来创建和显示图表。最常用的接口是 `pyplot` 中的 `plot()`、`scatter()`、`hist()` 等方法。
+### 创建简单的折线图
+```py
+import matplotlib.pyplot as plt
+
+# 数据
+x = [1, 2, 3, 4, 5]
+y = [1, 4, 9, 16, 25]
+
+# 创建图形
+plt.plot(x, y)
+
+# 添加标题和标签
+plt.title('Simple Plot')
+plt.xlabel('X Axis')
+plt.ylabel('Y Axis')
+
+# 显示图形
+plt.show()
+```
+### 创建散点图
+```py
+import matplotlib.pyplot as plt
+
+# 数据
+x = [1, 2, 3, 4, 5]
+y = [1, 4, 9, 16, 25]
+
+# 创建散点图
+plt.scatter(x, y)
+
+# 添加标题和标签
+plt.title('Scatter Plot')
+plt.xlabel('X Axis')
+plt.ylabel('Y Axis')
+
+# 显示图形
+plt.show()
+```
+### 柱状图
+```py
+import matplotlib.pyplot as plt
+
+# 数据
+categories = ['A', 'B', 'C', 'D']
+values = [10, 20, 30, 40]
+
+# 创建柱状图
+plt.bar(categories, values)
+
+# 添加标题和标签
+plt.title('Bar Chart')
+plt.xlabel('Categories')
+plt.ylabel('Values')
+
+# 显示图形
+plt.show()
+```
+### 直方图
+```py
+import matplotlib.pyplot as plt
+import numpy as np
+
+# 数据
+data = np.random.randn(1000)
+
+# 创建直方图
+plt.hist(data, bins=30)
+
+# 添加标题和标签
+plt.title('Histogram')
+plt.xlabel('Value')
+plt.ylabel('Frequency')
+
+# 显示图形
+plt.show()
+```
+### 子图
+有时你可能希望在同一个窗口中显示多个图形。这时可以使用 `plt.subplot()` 来创建子图。
+```py
+import matplotlib.pyplot as plt
+
+# 创建一个2x2的图形网格
+plt.subplot(2, 2, 1)  # 第一子图
+plt.plot([1, 2, 3], [4, 5, 6])
+
+plt.subplot(2, 2, 2)  # 第二子图
+plt.scatter([1, 2, 3], [7, 8, 9])
+
+plt.subplot(2, 2, 3)  # 第三子图
+plt.bar([1, 2, 3], [10, 20, 30])
+
+plt.subplot(2, 2, 4)  # 第四子图
+plt.hist([1, 2, 3, 4, 5, 6, 7], bins=3)
+
+# 显示所有子图
 ```
